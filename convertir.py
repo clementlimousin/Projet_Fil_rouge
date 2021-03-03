@@ -25,10 +25,10 @@ def generer_json_data_pdf(filename):
                 filename_json = filename.replace('.pdf','.json')
                 with open('./fichier_json/' + filename_json, "w") as json_file:
                     json.dump(pdftext, json_file)
+                return send_from_directory('./fichier_json/', filename_json)
                 with open("./fichier_metadata/metadata_" + filename_json, "w") as metadata_json_file:
                     json.dump(metadata, metadata_json_file)
-                #os.rename('./' + filename_json, './fichier_json/' + filename_json)
-                return send_from_directory('./fichier_json/', filename_json)
+                return send_from_directory('./fichier_metadata/', "metadata_" + filename_json)
             #IMAGE
 def generer_json_data_image(filename):
                 # reading the binary stuff
@@ -65,7 +65,7 @@ def generer_json_data_txt(filename):
                     data_json += contenu
                 filename_json = filename.replace('.txt','.json')
                 with open('./fichier_json/' + filename_json, "w") as json_file:
-                    json.dump(data_json, json_file) 
+                    john = json.dump(data_json, json_file) 
                 return send_from_directory('./fichier_json/', filename_json)  
             # CSV
 def generer_json_data_csv(filename):

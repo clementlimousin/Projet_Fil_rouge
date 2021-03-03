@@ -2,11 +2,24 @@
 from flask import Flask, request, abort, send_from_directory
 from werkzeug.exceptions import RequestEntityTooLarge
 import control_file
+from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
 #limite la taille des fichiers à 5Mo
 app.config["MAX_CONTENT_LENGTH"]=8*1024*1024
 
+# swagger specification #
+SWAGGER_URL = '/swagger'
+API_URL = '/static/swagger.json'
+SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
+    SWAGGER_URL,
+    API_URL,
+    config={
+        'app_name': "Projet fil rouge, Clément Limousin"
+    }
+)
+app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
+# fin swagger specification ###
 
 @app.route('/upload', methods=['POST'])
 def upload_file():

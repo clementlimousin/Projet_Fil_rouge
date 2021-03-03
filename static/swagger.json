@@ -1,0 +1,133 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Dans le cadre du MS SIO à CentraleSupelec, les étudiants doivent réaliser un projet fil rouge où ils doivent mettre en oeuvre plusieurs disciplines. Ce service propose de déposer des fichiers de différents formats et d'en retourner les métadonnées au format JSON.",
+    "version": "1.0.0",
+    "title": "Fil rouge: Clément Limousin",
+    "contact": {
+      "email": "clement.limousin@student-cs.fr"
+    },
+    "license": {
+      "name": "CentraleSupelec - MS SIO",
+      "url": "http://www.mastere-sio.ecp.fr"
+    }
+  },
+  "host": "127.0.0.1:5000",
+  "basePath": "/clementlimousin/projet_fil_rouge/1.0.0",
+  "tags": [
+    {
+      "name": "admins",
+      "description": "Secured Admin-only calls"
+    },
+    {
+      "name": "developers",
+      "description": "Operations available to regular developers"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/upload": {
+      "post": {
+        "tags": [
+          "file"
+        ],
+        "summary": "Dépôt d'un fichier",
+        "description": "",
+        "operationId": "uploadfile",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "Fichier à déposer",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Opération réalisée avec succès",
+            "schema": {
+              "$ref": "#/definitions/Fichier"
+            }
+          },
+          "401": {
+            "description": "Accès refusé",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          },
+          "404": {
+            "description": "Ressource non trouvée",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          },
+          "413": {
+            "description": "Taille du fichier trop grande",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Fichier": {
+      "type": "object",
+      "properties": {
+        "precision": {
+          "type": "string"
+        },
+        "nom_fichier": {
+          "type": "string"
+        },
+        "extension": {
+          "type": "string"
+        },
+        "mime_type": {
+          "type": "string"
+        },
+        "taille": {
+          "type": "integer",
+          "description": "en octects"
+        },
+        "contenu": {
+          "type": "string",
+          "description": "suivant le fichier il s'agit de données brutes ou encodées en base64"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "ApiResponse": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "type": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

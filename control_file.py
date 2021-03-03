@@ -30,20 +30,17 @@ def aiguiller(request):
     upload_file = request.files['file']
     filename = secure_filename(upload_file.filename)
     upload_file.save(os.path.join('./uploads/', filename))
+    lower_extension = filename.rsplit('.', 1)[1].lower()
+    filename = filename.replace( filename.rsplit('.', 1)[1] ,lower_extension)
     if upload_file:
-        if '.' in filename and filename.rsplit('.', 1)[1].lower() \
-            in CONTROL_EXTENSIONS:
-            if '.' in filename and filename.rsplit('.', 1)[1].lower() \
-                    in CONTROL_TXT:
+        if lower_extension in CONTROL_EXTENSIONS:
+            if lower_extension in CONTROL_TXT:
                 return convertir.generer_json_data_txt(filename)
-            elif '.' in filename and filename.rsplit('.', 1)[1].lower() \
-                    in CONTROL_CSV:
+            elif lower_extension in CONTROL_CSV:
                 return convertir.generer_json_data_csv(filename)
-            elif '.' in filename and filename.rsplit('.', 1)[1].lower() \
-                    in CONTROL_PDF:
+            elif lower_extension in CONTROL_PDF:
                 return convertir.generer_json_data_pdf(filename)    
-            elif '.' in filename and filename.rsplit('.', 1)[1].lower() \
-                    in CONTROL_IMAGE:
+            elif lower_extension in CONTROL_IMAGE:
                 return convertir.generer_json_data_image(filename)
             else:
                 return convertir.generer_json_vierge(request)
