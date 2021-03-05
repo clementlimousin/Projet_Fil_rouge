@@ -1,4 +1,4 @@
-
+# coding: utf-8
 import convertir
 import imghdr
 import os
@@ -37,7 +37,7 @@ def aiguiller(request):
             if lower_extension in CONTROL_TXT:
                 return convertir.generer_json_data_txt(filename,lower_extension)
             elif lower_extension in CONTROL_CSV:
-                return convertir.generer_json_data_csv(filename)
+                return convertir.generer_json_data_csv(filenameimpo)
             elif lower_extension in CONTROL_PDF:
                 return convertir.generer_json_data_pdf(filename)    
             elif lower_extension in CONTROL_IMAGE:

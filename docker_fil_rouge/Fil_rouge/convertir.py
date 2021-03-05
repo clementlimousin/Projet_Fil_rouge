@@ -1,3 +1,4 @@
+# coding: utf-8
 from PIL import Image
 import base64
 import boto3

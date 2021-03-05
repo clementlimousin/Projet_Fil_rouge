@@ -1,4 +1,4 @@
-
+# coding: utf-8:x
 from flask import Flask, request, abort, send_from_directory
 from werkzeug.exceptions import RequestEntityTooLarge
 import control_file
