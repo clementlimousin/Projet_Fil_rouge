@@ -35,13 +35,13 @@ def aiguiller(request):
     if upload_file:
         if lower_extension in CONTROL_EXTENSIONS:
             if lower_extension in CONTROL_TXT:
-                return convertir.generer_json_data_txt(filename)
+                return convertir.generer_json_data_txt(filename,lower_extension)
             elif lower_extension in CONTROL_CSV:
                 return convertir.generer_json_data_csv(filename)
             elif lower_extension in CONTROL_PDF:
                 return convertir.generer_json_data_pdf(filename)    
             elif lower_extension in CONTROL_IMAGE:
-                return convertir.generer_json_data_image(filename)
+                return convertir.generer_json_data_image(filename,lower_extension)
             else:
                 return convertir.generer_json_vierge(request)
         else:

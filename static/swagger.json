@@ -25,7 +25,7 @@
     }
   ],
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/upload": {
@@ -35,7 +35,7 @@
         ],
         "summary": "Dépôt d'un fichier",
         "description": "",
-        "operationId": "uploadfile",
+        "operationId": "upload",
         "consumes": [
           "multipart/form-data"
         ],

@@ -5,6 +5,8 @@ import control_file
 from flask_swagger_ui import get_swaggerui_blueprint
 
 app = Flask(__name__)
+if __name__ == "__main__":
+    app.run(debug=True, host='0.0.0.0')
 #limite la taille des fichiers à 5Mo
 app.config["MAX_CONTENT_LENGTH"]=8*1024*1024
 

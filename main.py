@@ -1,7 +1,7 @@
 import imghdr
 import os
 from flask import Flask, render_template, request,jsonify, redirect, url_for, abort, \
-    send_from_directory
+    send_from_directory, make_response
 from werkzeug.utils import secure_filename
 import PyPDF2
 import base64
@@ -59,7 +59,7 @@ def upload_files():
             with open("metadata_" + filename_json, "w") as metadata_json_file:
                 json.dump(metadata, metadata_json_file)
             os.rename('./' + filename_json, './fichier_json/' + filename_json)
-            return send_from_directory(app.config['UPLOAD_PATH_JSON'], filename_json)
+            return make_response(send_from_directory(app.config['UPLOAD_PATH_JSON'], filename_json, as_attachment=True))
         #IMAGE
         elif file_ext in format_img:
             # reading the binary stuff
