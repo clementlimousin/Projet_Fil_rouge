@@ -1,4 +1,4 @@
-# coding: utf-8:x
+# coding: utf-8
 from flask import Flask, request, abort, send_from_directory
 from werkzeug.exceptions import RequestEntityTooLarge
 import control_file
@@ -22,6 +22,10 @@ SWAGGERUI_BLUEPRINT = get_swaggerui_blueprint(
 )
 app.register_blueprint(SWAGGERUI_BLUEPRINT, url_prefix=SWAGGER_URL)
 # fin swagger specification ###
+
+@app.route('/bienvenue')
+def bienvenue():
+    return render_template('index.html')
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
