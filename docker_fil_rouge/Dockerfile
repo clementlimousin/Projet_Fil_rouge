@@ -9,7 +9,7 @@ RUN mkdir /app
 COPY requirements.txt requirements.txt
 COPY Fil_rouge /app/
 
-RUN pip3 install -r requirement.txt
+RUN pip3 install -r requirements.txt
 WORKDIR /app/
 
 CMD python app.py
