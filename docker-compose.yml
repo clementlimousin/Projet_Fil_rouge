@@ -1,15 +1,12 @@
 version: '3'
 
 services:
-  fil_rouge:
+  fil_rouge1:
     build: ./docker_fil_rouge
     ports:
       - "8000:8000"
-    network_mode: host
- 
   nginx:
-    build: ./nginx
-    container_name: nginx
+    image: nginx:latest
     ports:
       - "80:80"
       - "443:443"
@@ -18,10 +15,6 @@ services:
       - ./data/certbot/conf:/etc/letsencrypt
       - ./data/certbot/www:/var/www/certbot
     command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-    environment: 
-      - SERVER_NAME=52.73.208.172
-    restart: always
-    network_mode: host
   certbot:
     image: certbot/certbot
     volumes:
