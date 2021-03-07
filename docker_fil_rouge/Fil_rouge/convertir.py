@@ -105,6 +105,10 @@ def generer_json_data_csv(filename):
 #    s3 = boto3.resource('s3')
 #    s3.Bucket(BUCKET).put_object(Key=cle, Body=request.files['file'])
 
+#def save_file_to_s3(filepath, filename):
+#    session = boto3.Session(profile_name="csloginstudent")
+#    s3 = session.client("s3")
+#    s3.upload_file(filepath, const.S3_BUCKET_NAME, filename)
                 
     #curl -i -X POST -F "file=@./fichier_test/test_pdf.pdf" http://127.0.0.1:5000/upload 
 
