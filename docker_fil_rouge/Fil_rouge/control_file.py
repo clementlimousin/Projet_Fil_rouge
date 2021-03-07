@@ -35,15 +35,13 @@ def aiguiller(request):
     if upload_file:
         if lower_extension in CONTROL_EXTENSIONS:
             if lower_extension in CONTROL_TXT:
-                return convertir.generer_json_data_txt(filename,lower_extension)
+                return convertir.generer_json_data_txt(filename,lower_extension,upload_file)
             elif lower_extension in CONTROL_CSV:
-                return convertir.generer_json_data_csv(filenameimpo)
+                return convertir.generer_json_data_csv(filename)
             elif lower_extension in CONTROL_PDF:
-                return convertir.generer_json_data_pdf(filename)    
+                return convertir.generer_json_data_pdf(filename,upload_file)    
             elif lower_extension in CONTROL_IMAGE:
-                return convertir.generer_json_data_image(filename,lower_extension)
-            else:
-                return convertir.generer_json_vierge(request)
+                return convertir.generer_json_data_image(filename,lower_extension,upload_file)
         else:
             return 'Accès autorisé mais le fichier ne porte pas une extension autorisée !\n'
     else:

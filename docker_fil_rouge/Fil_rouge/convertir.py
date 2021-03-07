@@ -18,7 +18,7 @@ import boto3
 #BUCKET='filrougeclement'
 
 
-def generer_json_data_pdf(filename):
+def generer_json_data_pdf(filename,upload_file):
     pdf = open('./uploads/' + filename, 'rb')
     pdfReader = PyPDF2.PdfFileReader(pdf)
     pdftext =""
@@ -26,7 +26,8 @@ def generer_json_data_pdf(filename):
         pageObj = pdfReader.getPage(page)
         pdftext += pageObj.extractText().replace('\n','')
     filename_json = filename.replace('.pdf','.json')
-    fichier_json = json.dumps({'Nom':filename,'Metadonnees':pdfReader.getDocumentInfo(),'Donnees':pdftext})
+    fichier_json = json.dumps({'Nom':filename,'Metadonnees':pdfReader.getDocumentInfo(), \
+        'mime_type': upload_file.mimetype, 'taille':upload_file.headers.get('Content-Length'),'Donnees':pdftext})
     with open('./fichier_json/' + filename_json, "w") as json_file:
         json.dump(fichier_json, json_file)
     return make_response(send_from_directory('./fichier_json/', filename_json,as_attachment=True))
@@ -34,7 +35,7 @@ def generer_json_data_pdf(filename):
 
 
 #IMAGE
-def generer_json_data_image(filename,lower_extension):
+def generer_json_data_image(filename,lower_extension,upload_file):
     # reading the binary stuff
     img = open('./uploads/' + filename, 'rb')
     image_read = img.read()
@@ -51,7 +52,8 @@ def generer_json_data_image(filename,lower_extension):
         filename_json = filename.replace( i ,'.json')
         if ".json" in filename_json:
             break
-    fichier_json = json.dumps({'Nom':filename, 'extension':lower_extension,'Donnees':json_data})
+    fichier_json = json.dumps({'Nom':filename, 'extension':lower_extension,\
+        'mime_type': upload_file.mimetype, 'taille':upload_file.headers.get('Content-Length'),'Donnees':json_data})
     # rename the file
     with open('./fichier_json/' + filename_json, "w") as json_file:
         json_file.write(fichier_json)
@@ -64,14 +66,15 @@ def generer_json_data_image(filename,lower_extension):
 
 
             # TXT
-def generer_json_data_txt(filename,lower_extension):
+def generer_json_data_txt(filename,lower_extension,upload_file):
     data_json=""
     text = open('./uploads/' + filename, "r") 
     data = text.readlines()
     for contenu in data:
         data_json += contenu
     filename_json = filename.replace('.txt','.json')
-    fichier_json = json.dumps({'Nom':filename, 'extension':lower_extension,'Donnees':data_json})
+    fichier_json = json.dumps({'Nom':filename, 'extension':lower_extension,\
+        'mime_type': upload_file.mimetype, 'taille':upload_file.headers.get('Content-Length'),'Donnees':data_json})
     with open('./fichier_json/' + filename_json, "w") as json_file:
         json.dump(fichier_json, json_file) 
     return make_response(send_from_directory('./fichier_json/', filename_json,as_attachment=True)) 
@@ -103,5 +106,5 @@ def generer_json_data_csv(filename):
 #    s3.Bucket(BUCKET).put_object(Key=cle, Body=request.files['file'])
 
                 
-    #curl -i -X POST -F "file=@./fichier_test/test_pdf.pdf" https://127.0.0.1/upload 
+    #curl -i -X POST -F "file=@./fichier_test/test_pdf.pdf" http://127.0.0.1:5000/upload 
 
