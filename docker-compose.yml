@@ -1,34 +1,18 @@
 version: '3'
 
 services:
-  fil_rouge1:
+  fil_rouge:
     build: ./docker_fil_rouge
     ports:
       - "8000:8000"
     network_mode: host
-
-  fil_rouge2:
-    build: ./docker_fil_rouge
-    ports:
-      - "8000:8000"
-    network_mode: host
-
-  fil_rouge3:
-    build: ./docker_fil_rouge
-    ports:
-      - "8000:8000"
-    network_mode: host
-
+ 
   nginx:
     build: ./nginx
     container_name: nginx
     ports:
       - "80:80"
       - "443:443"
-    depends_on:
-      - fil_rouge1
-      - fil_rouge2
-      - fil_rouge3
     volumes:
       - ./nginx/filrouge.conf:/etc/nginx/conf.d/defaut.conf
       - ./data/certbot/conf:/etc/letsencrypt
