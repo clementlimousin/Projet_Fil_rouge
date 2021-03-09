@@ -5,7 +5,7 @@ if ! [ -x "$(command -v docker-compose)" ]; then
   exit 1
 fi
 
-domains=(filrouge.cli.p.2021.ajoga.fr)
+domains=(filrouge.cli.p2021.ajoga.fr)
 rsa_key_size=4096
 data_path="./data/certbot"
 email="clement.limousin@student-cs.fr" # Adding a valid address is strongly recommended

@@ -1,23 +1,30 @@
 version: '3'
 
-services:
-  fil_rouge1:
-    build: ./docker_fil_rouge
-    ports:
-      - "8000:8000"
-  nginx:
-    image: nginx:latest
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/filrouge.conf:/etc/nginx/conf.d/defaut.conf
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - ./data/certbot/conf:/etc/letsencrypt
-      - ./data/certbot/www:/var/www/certbot
-    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+services: 
+    flaskapp:
+        build: ./flaskapp-docker
+        container_name: flaskapp
+        network_mode: host
+        environment: 
+            - AWS_PROFILE=csloginstudent
+            - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
+            - AWS_CONFIG_FILE=/aws/config
+    nginx:
+        build: ./data/nginx
+        container_name: nginx
+        environment: 
+            - SERVER_NAME=54.158.55.117
+        restart: always
+        network_mode: host
+        volumes:
+            - ./data/nginx:/etc/nginx/conf.d
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot  
+        command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
+    certbot:
+        image: certbot/certbot
+        restart: unless-stopped
+        volumes:
+            - ./data/certbot/conf:/etc/letsencrypt
+            - ./data/certbot/www:/var/www/certbot
+        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
