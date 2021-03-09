@@ -17,7 +17,7 @@ services:
         restart: always
         network_mode: host
         volumes:
-            - ./data/nginx:/etc/nginx/conf.d
+            - ./data/filrouge.conf:/etc/nginx/conf.d/defaut.conf
             - ./data/certbot/conf:/etc/letsencrypt
             - ./data/certbot/www:/var/www/certbot  
         command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
