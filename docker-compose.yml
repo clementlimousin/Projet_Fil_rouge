@@ -6,12 +6,12 @@ services:
         container_name: Fil_rouge
         network_mode: host
         restart: always
-        environment: 
-            - AWS_PROFILE=csloginstudent
-            - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
-            - AWS_CONFIG_FILE=/aws/config
+        #environment: 
+        #    - AWS_PROFILE=csloginstudent
+        #    - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
+        #    - AWS_CONFIG_FILE=/aws/config
         ports:
-            - "4995-4999:8000"
+            - "4995:5000"
     nginx:
         build: ./nginx
         container_name: nginx
