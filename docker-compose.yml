@@ -2,29 +2,31 @@ version: '3'
 
 services: 
     flaskapp:
-        build: ./flaskapp-docker
-        container_name: flaskapp
+        build: ./docker_fil_rouge
+        container_name: Fil_rouge
         network_mode: host
         environment: 
             - AWS_PROFILE=csloginstudent
             - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
             - AWS_CONFIG_FILE=/aws/config
     nginx:
-        build: ./data/nginx
+        build: ./nginx
         container_name: nginx
+        ports :
+            - "80:80"
+            - "443:443"
         environment: 
             - SERVER_NAME=54.158.55.117
         restart: always
         network_mode: host
         volumes:
-            - ./data/filrouge.conf:/etc/nginx/conf.d/defaut.conf
+            - ./nginx/filrouge.conf:/etc/nginx/conf.d
             - ./data/certbot/conf:/etc/letsencrypt
             - ./data/certbot/www:/var/www/certbot  
-        command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     certbot:
         image: certbot/certbot
         restart: unless-stopped
         volumes:
             - ./data/certbot/conf:/etc/letsencrypt
             - ./data/certbot/www:/var/www/certbot
-        entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
+
