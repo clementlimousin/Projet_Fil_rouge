@@ -1,13 +1,14 @@
-FROM python:3.8
-MAINTAINER clement.limousin@student-cs.fr 
+FROM ubuntu:18.04
 
-ADD .aws .aws/
-COPY *.py requirements.txt ./
+RUN apt-get update -y
+RUN apt-get install python3-pip -y
+RUN apt-get install gunicorn3 -y
+
+COPY requirements.txt requirements.txt
+COPY ./Fil_rouge /app/
+COPY .aws/ /aws/
 
 RUN pip3 install -r requirements.txt
+WORKDIR /app/
 
-ENV AWS_SHARED_CREDENTIALS_FILE=/.aws/credentials
-ENV AWS_CONFIG_FILE=/.aws/config
-ENV AWS_PROFILE=csloginstudent
-
-CMD ["python3","app.py"]
+CMD ["gunicorn3", "-b", "0.0.0.0:8000", "app:app", "--workers=5"]
