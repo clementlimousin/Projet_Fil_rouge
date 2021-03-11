@@ -1,7 +1,7 @@
 version: '3'
 
 services: 
-    fil_rouge:
+    fil_rouge1:
         build: ./docker_fil_rouge
         restart: always
         environment: 
@@ -9,27 +9,27 @@ services:
             - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
             - AWS_CONFIG_FILE=/aws/config
         ports:
-            - "8000:8000"
+            - "7995:8000"
         network_mode: host
         
-    #fil_rouge2:
-        #build: ./docker_fil_rouge
-        #restart: always
-       # environment: 
-        #    - AWS_PROFILE=csloginstudent
-        #    - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
-        #    - AWS_CONFIG_FILE=/aws/config
-        #ports:
-        #    - "4996:8000"
-    #fil_rouge3:
-        #build: ./docker_fil_rouge
-        #restart: always
-        #environment: 
-        #    - AWS_PROFILE=csloginstudent
-        #    - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
-        #    - AWS_CONFIG_FILE=/aws/config
-        #ports:
-        #    - "4997:8000"
+    fil_rouge2:
+        build: ./docker_fil_rouge
+        restart: always
+        environment: 
+            - AWS_PROFILE=csloginstudent
+            - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
+            - AWS_CONFIG_FILE=/aws/config
+        ports:
+            - "7996:8000"
+    fil_rouge3:
+        build: ./docker_fil_rouge
+        restart: always
+        environment: 
+            - AWS_PROFILE=csloginstudent
+            - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
+            - AWS_CONFIG_FILE=/aws/config
+        ports:
+            - "7997:8000"
         
     nginx:
         build: ./nginx
