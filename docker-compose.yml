@@ -1,17 +1,34 @@
 version: '3'
 
 services: 
-    fil_rouge:
+    fil_rouge1:
         build: ./docker_fil_rouge
-        network_mode: host
         restart: always
         environment: 
             - AWS_PROFILE=csloginstudent
             - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
             - AWS_CONFIG_FILE=/aws/config
         ports:
-            - "4995-4999:5000"
-
+            - "4995:8000"
+    fil_rouge2:
+        build: ./docker_fil_rouge
+        restart: always
+        environment: 
+            - AWS_PROFILE=csloginstudent
+            - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
+            - AWS_CONFIG_FILE=/aws/config
+        ports:
+            - "4996:8000"
+    fil_rouge3:
+        build: ./docker_fil_rouge
+        restart: always
+        environment: 
+            - AWS_PROFILE=csloginstudent
+            - AWS_SHARED_CREDENTIALS_FILE=/aws/credentials
+            - AWS_CONFIG_FILE=/aws/config
+        ports:
+            - "4997:8000"
+        
     nginx:
         build: ./nginx
         ports :
@@ -24,7 +41,10 @@ services:
         #    - ./data/certbot/conf:/etc/letsencrypt
         #    - ./data/certbot/www:/var/www/certbot  
         depends_on:
-            - fil_rouge
+            - fil_rouge1
+            - fil_rouge2
+            - fil_rouge3
+
         #command: "/bin/sh -c 'while :; do sleep 6h & wait $${​​!}​​; nginx -s reload; done & nginx -g \"daemon off;\"'"
     #certbot:
         #image: certbot/certbot
