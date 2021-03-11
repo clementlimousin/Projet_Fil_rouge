@@ -1,7 +1,7 @@
 version: '3'
 
 services: 
-    fil_rouge1:
+    fil_rouge:
         build: ./docker_fil_rouge
         restart: always
         environment: 
@@ -10,6 +10,8 @@ services:
             - AWS_CONFIG_FILE=/aws/config
         ports:
             - "8000:8000"
+        network_mode: host
+        
     #fil_rouge2:
         #build: ./docker_fil_rouge
         #restart: always
@@ -31,8 +33,9 @@ services:
         
     nginx:
         build: ./nginx
-        ports :
-            - "80:80"
+        container_name: nginx
+        environment:
+            - SERVEUR_NAME= 54.211.246.66 
             #- "443:443"
         restart: always
         network_mode: host
