@@ -132,4 +132,4 @@ def generer_json_data_csv(filename):
                 
     #curl -i -X POST -F "file=@./fichier_test/test_pdf.pdf" http://127.0.0.1:5000/upload 
     #curl -i -X POST -u "frlaissus:sio" -F "file=@./fichier_test/test_pdf.pdf" http://127.0.0.1:5000/upload
-
+    #curl -i -X POST -u "frlaissus:sio" -F "file=@./fichier_test/test_pdf.pdf" https://filrouge.cli.p2021.ajoga.fr/upload
