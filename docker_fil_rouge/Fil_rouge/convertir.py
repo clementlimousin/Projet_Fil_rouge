@@ -13,9 +13,26 @@ from json import dumps
 import csv
 import os
 import json
+# Connection avec EC3
 import boto3
+import logging 
+from botocore.exceptions import ClientError
 
-#BUCKET='filrougeclement'
+BUCKET_NAME ='filrougeclement'
+
+def save_file(filename):
+    OBJECT_NAME = filename
+    FILE_NAME = './fichier_json/' + filename
+    session = boto3.Session(profile_name='csloginstudent')
+    s3 = session.client("s3")
+    try:
+            response =s3.upload_file(FILE_NAME,BUCKET_NAME,OBJECT_NAME)
+    except ClientError as e:
+        logging.error(e)
+        return 'False'
+    return "Le fichier est correctement envoyé"
+
+
 
 
 def generer_json_data_pdf(filename,upload_file):
@@ -30,8 +47,8 @@ def generer_json_data_pdf(filename,upload_file):
         'mime_type': upload_file.mimetype, 'taille':upload_file.headers.get('Content-Length'),'Donnees':pdftext})
     with open('./fichier_json/' + filename_json, "w") as json_file:
         json.dump(fichier_json, json_file)
+    save_file(filename_json)
     return make_response(send_from_directory('./fichier_json/', filename_json,as_attachment=True))
-
 
 
 #IMAGE
@@ -60,6 +77,7 @@ def generer_json_data_image(filename,lower_extension,upload_file):
     # put the file in the good folder
     # display the file
     #enregistrer_fichier(filename)
+    save_file(filename_json)
     return make_response(send_from_directory('./fichier_json/', filename_json,as_attachment=True))
     #return image_encoding
 
@@ -77,6 +95,7 @@ def generer_json_data_txt(filename,lower_extension,upload_file):
         'mime_type': upload_file.mimetype, 'taille':upload_file.headers.get('Content-Length'),'Donnees':data_json})
     with open('./fichier_json/' + filename_json, "w") as json_file:
         json.dump(fichier_json, json_file) 
+    save_file(filename_json)
     return make_response(send_from_directory('./fichier_json/', filename_json,as_attachment=True)) 
 
 
@@ -94,6 +113,7 @@ def generer_json_data_csv(filename):
     with open('./fichier_json/' + filename_json, "w") as f:
         f.write(json.dumps(data, sort_keys=False, indent=4, separators=(',', ': '))) #for pretty   
     #enregistrer_fichier(filename)
+    save_file(filename_json)
     return make_response(send_from_directory('./fichier_json/', filename_json,as_attachment=True))
 
 
@@ -111,4 +131,5 @@ def generer_json_data_csv(filename):
 #    s3.upload_file(filepath, const.S3_BUCKET_NAME, filename)
                 
     #curl -i -X POST -F "file=@./fichier_test/test_pdf.pdf" http://127.0.0.1:5000/upload 
+    #curl -i -X POST -u "frlaissus:sio" -F "file=@./fichier_test/test_pdf.pdf" http://127.0.0.1:5000/upload
 

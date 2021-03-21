@@ -19,13 +19,41 @@ tags:
   description: Operations available to regular developers
 
 paths:
+  /bienvenue:
+    get:
+      tags:
+      - "bienvenue"
+      summary: "page de bienvenue"
+      description: ""
+      operationId: "bienvenue"
+      responses:
+        "200":
+          description: "Opération réalisée avec succès"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "401":
+          description: "Accès refusé"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "404":
+          description: "Ressource non trouvée"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "413":
+          description: "Taille du fichier trop grande"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "500":
+          description: "Erreur interne du serveur"
+          schema:
+            $ref: "#/definitions/ApiResponse"
   /upload:
     post:
       tags:
       - "file"
       summary: "Dépôt d'un fichier"
       description: ""
-      operationId: "uploadfile"
+      operationId: "upload"
       consumes:
       - "multipart/form-data"
       produces:
@@ -75,8 +103,6 @@ definitions:
       contenu:
         type: "string"
         description: "suivant le fichier il s'agit de données brutes ou encodées en base64"
-    xml:
-      name: "User"
   ApiResponse:
     type: "object"
     properties:
@@ -87,12 +113,14 @@ definitions:
       message:
         type: "string"
         
+
+basePath: /clementlimousin/projet_fil_rouge/1.0.0
+# schemes:
+#  - http
 # Added by API Auto Mocking Plugin
 # host: "0.0.0.0:55080"
-basePath: /clementlimousin/projet_fil_rouge/1.0.0
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
 schemes:
  - https
-# Added by API Auto Mocking Plugin
-host: "0.0.0.0:55080"
-# Added by API Auto Mocking Plugin
-#host: virtserver.swaggerhub.com
+ - http

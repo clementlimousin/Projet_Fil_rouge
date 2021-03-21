@@ -12,7 +12,7 @@
       "url": "http://www.mastere-sio.ecp.fr"
     }
   },
-  "host": "127.0.0.1:5000",
+  "host": "virtserver.swaggerhub.com",
   "basePath": "/clementlimousin/projet_fil_rouge/1.0.0",
   "tags": [
     {
@@ -25,9 +25,53 @@
     }
   ],
   "schemes": [
+    "https",
     "http"
   ],
   "paths": {
+    "/bienvenue": {
+      "get": {
+        "tags": [
+          "bienvenue"
+        ],
+        "summary": "page de bienvenue",
+        "description": "",
+        "operationId": "bienvenue",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Opération réalisée avec succès",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          },
+          "401": {
+            "description": "Accès refusé",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          },
+          "404": {
+            "description": "Ressource non trouvée",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          },
+          "413": {
+            "description": "Taille du fichier trop grande",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          },
+          "500": {
+            "description": "Erreur interne du serveur",
+            "schema": {
+              "$ref": "#/definitions/ApiResponse"
+            }
+          }
+        }
+      }
+    },
     "/upload": {
       "post": {
         "tags": [
@@ -110,9 +154,6 @@
           "type": "string",
           "description": "suivant le fichier il s'agit de données brutes ou encodées en base64"
         }
-      },
-      "xml": {
-        "name": "User"
       }
     },
     "ApiResponse": {
