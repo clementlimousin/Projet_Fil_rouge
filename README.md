@@ -50,7 +50,7 @@ flask run
 ## A distance
 
 L'application sera disponible à l'url suivante: 
-https://filerouge.cli.p2021.ajoga.fr/
+https://filrouge.cli.p2021.ajoga.fr/
 
 # Fonctionnalité
 
