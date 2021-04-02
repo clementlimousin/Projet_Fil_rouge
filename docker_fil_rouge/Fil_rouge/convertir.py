@@ -68,7 +68,7 @@ def generer_json_data_image(filename,lower_extension,upload_file):
         if ".json" in filename_json:
             break
         session = boto3.Session()
-        s3_client = session.client("rekognition")
+        s3_client = session.client("rekognition", region_name='us-east-1')
         response = s3_client.detect_labels(
             Image={"Bytes": image_read}, MaxLabels=10, MinConfidence=95
         ) 
@@ -120,7 +120,4 @@ def generer_json_data_csv(filename):
     save_file(filename_json)
     return make_response(send_from_directory('./fichier_json/', filename_json,as_attachment=True))
                 
-    #curl -i -X POST -F "file=@./fichier_test/test_pdf.pdf" http://127.0.0.1:5000/upload 
-    #curl -i -X POST -u "frlaissus:sio" -F "file=@./fichier_test/test_pdf.pdf" http://127.0.0.1:5000/upload
-    #curl -i -X POST -u "frlaissus:sio" -F "file=@./fichier_test/test_pdf.pdf" https://filrouge.cli.p2021.ajoga.fr/upload
-    #pytest -sv test.py
+   
