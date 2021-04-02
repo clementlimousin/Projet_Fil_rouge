@@ -5,7 +5,7 @@ import control_file
 import convertir
 from flask_swagger_ui import get_swaggerui_blueprint
 import hashlib
-from mdp import NOM_UTILISATEUR,MOT_DE_PASSE
+
 # Connection avec EC3
 import boto3
 import logging 
@@ -13,7 +13,10 @@ from botocore.exceptions import ClientError
 BUCKET_NAME ='filrougeclement'
 
 
-
+#Utilisateur Hashé en SHA 256 Bit
+NOM_UTILISATEUR = '7a6b0e3693b34359ffdc229548e2e6b257c8ac50649ca21726d9190978ac7ebb'
+#Mot de passe Hashé en SHA 256 Bit
+MOT_DE_PASSE= 'b296d052a93dce8352d58dc35c94302c7255ee9c5f2b06d99d712a6c071b4a13'
 
 
 app = Flask(__name__)
