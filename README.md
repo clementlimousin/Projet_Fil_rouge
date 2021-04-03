@@ -87,7 +87,7 @@ Permet de supprimer un fichier chargé.
 
 exemple de commande:
 ```
-curl -i -X POST -u "frlaissus:sio" https://filrouge.cli.p2021.ajoga.fr/delete/test_pdf.pdf
+curl POST -u "frlaissus:sio" https://filrouge.cli.p2021.ajoga.fr/delete/test_pdf.pdf
 ```
 
 ## /download/{fichier}
@@ -96,7 +96,7 @@ Permet de téléchargé un fichier préalablement chargé.
 
 exemple de commande:
 ```
-curl -i -X POST -u "frlaissus:sio" https://filrouge.cli.p2021.ajoga.fr/download/test_pdf.pdf
+curl POST -u "frlaissus:sio" https://filrouge.cli.p2021.ajoga.fr/download/test_pdf.pdf
 ```
 
 # Documentation
