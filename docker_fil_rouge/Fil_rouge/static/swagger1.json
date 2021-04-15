@@ -52,18 +52,6 @@
                 "$ref": "#/definitions/ApiResponse"
               }
             },
-            "404": {
-              "description": "Ressource non trouvée",
-              "schema": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            },
-            "413": {
-              "description": "Taille du fichier trop grande",
-              "schema": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            },
             "500": {
               "description": "Erreur interne du serveur",
               "schema": {
@@ -81,7 +69,25 @@
             "200": {
               "description": "Opération réalisée avec succès"
             }
-          }
+          },
+            "401": {
+              "description": "Accès refusé",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            },
+            "404": {
+              "description": "Ressource non trouvée",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            },
+            "500": {
+              "description": "Erreur interne du serveur",
+              "schema": {
+                "$ref": "#/definitions/ApiResponse"
+              }
+            }
         }
       },
       "/delete/{file}": {
@@ -106,32 +112,12 @@
                 "$ref": "#/definitions/ApiResponse"
               }
             }
+          },
+          "security": [
+          {
+            "BasicAuthentification": []
           }
-        }
-      },
-      "/download/{file}": {
-        "get": {
-          "summary": "Télécharger un des fichiers déjà chargé en utilisant son nom",
-          "parameters": [
-            {
-              "name": "file",
-              "in": "path",
-              "description": "Nom du fichier de la liste téléchargé",
-              "required": true,
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "Opération réalisée avec succès"
-            },
-            "404": {
-              "description": "Ressource non trouvée",
-              "schema": {
-                "$ref": "#/definitions/ApiResponse"
-              }
-            }
-          }
+        ]
         }
       },
       "/upload": {
@@ -188,7 +174,12 @@
                 "$ref": "#/definitions/ApiResponse"
               }
             }
+          },
+          "security": [
+          {
+            "BasicAuthentification": []
           }
+        ]
         }
       }
     },
@@ -196,9 +187,6 @@
       "Fichier": {
         "type": "object",
         "properties": {
-          "precision": {
-            "type": "string"
-          },
           "nom_fichier": {
             "type": "string"
           },
